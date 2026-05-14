@@ -1,0 +1,54 @@
+#include<bits/stdc++.h>
+using namespace std;
+#define ll long long
+#define Code ios::sync_with_stdio(false);
+#define by cin.tie(nullptr);
+#define Shrinil cout.tie(nullptr)
+const long long MOD = 1e9 + 7;
+ll ceil_div(ll a,ll b){
+    return (a+b-1LL)/(b);
+}
+bool pow_2(ll n){
+    if(n == 0) return true;
+    return ((n > 0)&&(n & (n - 1)) == 0);
+}
+ll n;
+void solve(){
+    cin >> n;
+    vector<ll> a(n);
+    vector<ll> b(n);
+    for(ll i = 0;i<n;++i){
+        cin >> a[i];
+    }
+    for(ll i = 0;i<n;++i) cin >> b[i];
+    ll ajisai_xor = 0;
+    ll mai_xor = 0;
+    for(ll i = 0;i<n;++i){
+        ajisai_xor = ajisai_xor^a[i];
+        mai_xor = mai_xor^b[i];
+    }
+    for(ll i = 0;i<n;++i){
+        if(i%2){
+            if((mai_xor^a[i]^b[i]) > (ajisai_xor^a[i]^b[i])){
+                mai_xor = mai_xor^a[i]^b[i];
+                ajisai_xor = ajisai_xor^a[i]^b[i];
+            }
+        }
+        else{
+            if((mai_xor^a[i]^b[i]) < (ajisai_xor^a[i]^b[i])){
+                mai_xor = mai_xor^a[i]^b[i];
+                ajisai_xor = ajisai_xor^a[i]^b[i];
+            }
+        }
+    }
+    if(mai_xor<ajisai_xor) cout << "Ajisai" << '\n';
+    else if(mai_xor==ajisai_xor) cout << "Tie" << '\n';
+    else cout << "Mai" << '\n';
+}
+int main(){
+    Code by Shrinil;
+    int t; cin >> t;
+    while(t--){
+        solve();
+    }
+}
